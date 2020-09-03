@@ -1,6 +1,6 @@
 
 import React from 'react';
-import "./def.css";
+import "./App.css";
 import TableRow from '@material-ui/core/TableRow';
 import { connect } from 'react-redux';
 import Paper from '@material-ui/core/Paper';
@@ -45,14 +45,9 @@ class App extends React.Component {
 
   componentDidMount() {
     this.props.user_fetch_requested()
-    console.log("user", this.props.user)
-    // setTimeout(() => {
-    //   this.setState({ isoading: true })
-    // }, 2000)
   };
 
   componentWillReceiveProps(nextProps) {
-    console.log(nextProps);
     const newValue = nextProps.user;
     if (newValue !== this.props.user.length)
       this.setState({ data: newValue })
@@ -119,6 +114,7 @@ class App extends React.Component {
     return (
       <>
         <div className="form-table">
+        <p className="label">WELCOME TO CRM TABLE</p>
           <div className="button">
             <CreateDialog addUser={this.addUser} />
           </div>
@@ -146,7 +142,6 @@ class App extends React.Component {
                           <TableRow hover role="checkbox" tabIndex={-1} key={row.code}>
                             {columns.map((column) => {
                               const value = row[column.id];
-                              console.log("value", value);
                               return (
                                 <TableCell key={column.id} align={column.align}>
                                   {value}

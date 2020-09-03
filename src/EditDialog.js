@@ -17,7 +17,7 @@ class EditDialog extends React.Component {
       ageError: false,
       nameError: false,
       colourNameError: false,
-      notDisabled: true
+      colour: null
     }
 
     this.handleClickOpen = this.handleClickOpen.bind(this);
@@ -72,8 +72,9 @@ class EditDialog extends React.Component {
     }
   }
 
+  // it is for checking whether the value from form is changed or not
   checkForValue(value, variable) {
-    let userData=this.props.item;
+    let userData = this.props.item;
     if (value === undefined) {
       for (var prop in userData) {
         if (prop === variable) {
@@ -107,7 +108,7 @@ class EditDialog extends React.Component {
           aria-labelledby="alert-dialog-title"
           aria-describedby="alert-dialog-description"
         >
-          <DialogTitle id="alert-dialog-title">{"Use Google's location service?"}</DialogTitle>
+          <DialogTitle id="alert-dialog-title">{"Update User"}</DialogTitle>
           <DialogContent>
             <form>
               <TextField
@@ -161,10 +162,10 @@ class EditDialog extends React.Component {
           </DialogContent>
           <DialogActions>
             <Button onClick={this.handleClose} color="primary">
-              Disagree
+              Back
           </Button>
-            <Button onClick={this.editUser} color="primary" autoFocus>
-              Agree
+            <Button disabled={this.checkForDisabledButton} onClick={this.editUser} color="primary" autoFocus>
+              Update
           </Button>
           </DialogActions>
         </Dialog>

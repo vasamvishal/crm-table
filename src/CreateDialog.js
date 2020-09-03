@@ -17,7 +17,6 @@ export default class CreateDialog extends React.Component {
             ageError: false,
             nameError: false,
             colourNameError: false,
-            notDisabled: true
         }
         this.handleClickOpen = this.handleClickOpen.bind(this);
         this.handleClose = this.handleClose.bind(this);
@@ -75,11 +74,18 @@ export default class CreateDialog extends React.Component {
         this.props.addUser({ _id:this.state.Id, name:this.state.nameValue, age:this.state.ageValue, colour:this.state.colourName });
     };
 
-    // checkForDisabled = () => {
-    //     if (this.state.numberError === false || this.state.ageError === false || this.state.colourNameError === false || this.state.nameError === false) {
-    //         this.setState({notDisabled})
-    //     }
-    // }
+    checkForDisabledButton() {
+        if (this.state.numberError === false && this.state.colourNameError === false
+          && this.state.ageError === false && this.state.nameError === false 
+          && this.state.Id !== undefined && this.state.nameValue !==undefined && 
+          this.state.ageValue !==undefined && this.state.colourName !==undefined
+          ) {
+          return false;
+        }
+        else {
+          return true;
+        }
+      }
     render() {
         return (
             <div>
@@ -144,7 +150,7 @@ export default class CreateDialog extends React.Component {
                         <Button onClick={this.handleClose} color="primary">
                             BACK
                         </Button>
-                        <Button
+                        <Button disabled={this.checkForDisabledButton()}
                             onClick={this.createUser} color="primary" autoFocus>
                             CREATE
                         </Button>

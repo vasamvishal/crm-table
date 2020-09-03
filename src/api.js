@@ -1,5 +1,9 @@
- import data from "../src/data.json"
+import data from "../src/data.json"
+
+
 import { act } from "react-dom/test-utils";
+var dataApi = [];
+dataApi = data;
 export const fetchData = async () => {
     console.log("call");
     try {
@@ -18,12 +22,14 @@ export const deleteData = async (action) => {
         // const response= await fetch("https://crudcrud.com/api/a93e2c9007f14826a988e3e31a662dec/unicorns")
         // const data=await response.json();
         var remainingData = [];
-        data.filter((item) => {
+        console.log(dataApi)
+        dataApi.filter((item) => {
             if (item._id !== action.payload._id) {
                 console.log(item);
                 remainingData.push(item);
             }
         })
+
         console.log("rrem", remainingData);
         return remainingData;
         // return [action.payload];
@@ -71,6 +77,7 @@ export const editData = async (action) => {
         //          remainingData.push(item);
         //     }
         // })
+        data.pop();
         data.push(action.payload);
         console.log("rrem", data);
         return data;
