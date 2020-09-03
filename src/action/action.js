@@ -10,9 +10,9 @@ export const CREATE_USER = "CREATE_USER"
 export const CREATE_USER_SUCCESSED = "CREATE_USER_SUCCESSED"
 export const CREATE_USER_FAILED = "CREATE_USER_FAILED"
 
-export const EDIT_USER = "CREATE_USER"
-export const EDIT_USER_SUCCESSED = "CREATE_USER_SUCCESSED"
-export const EDIT_USER_FAILED = "CREATE_USER_FAILED"
+export const EDIT_USER = "EDIT_USER"
+export const EDIT_USER_SUCCESSED = "EDIT_USER_SUCCESSED"
+export const EDIT_USER_FAILED = "EDIT_USER_FAILED"
 
 
 export const user_fetch_requested = () => ({
@@ -23,8 +23,14 @@ export const delete_user = (user) => ({
     type: 'DELETE_USER',
     payload: user
 });
+
 export const create_user = (user) => ({
     type: 'CREATE_USER',
+    payload: user
+});
+
+export const edit_user = (user) => ({
+    type: 'EDIT_USER',
     payload: user
 });
 

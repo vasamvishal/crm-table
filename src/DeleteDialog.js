@@ -13,9 +13,9 @@ class DeleteDialog extends React.Component {
     this.state = {
       open: false,
     }
-    console.log(this.props);
     this.handleClickOpen = this.handleClickOpen.bind(this);
     this.handleClose = this.handleClose.bind(this);
+    this.deleteUser = this.deleteUser.bind(this);
   }
 
   handleClickOpen() {
@@ -23,23 +23,25 @@ class DeleteDialog extends React.Component {
   };
 
   handleClose() {
-    this.setState({ open: false },()=>{
-      this.props.agent(this.props.item)
-    });
+    this.setState({ open: false });
+  }
 
+  deleteUser() {
+    this.setState({ open: false });
+    this.props.deleteUser(this.props.item)
   };
 
   render() {
     return (
       <div>
-        <DeleteIcon variant="outlined" color="primary" onClick={this.handleClickOpen}/>
+        <DeleteIcon variant="outlined" color="primary" onClick={this.handleClickOpen} />
         <Dialog
           open={this.state.open}
           onClose={this.handleClose}
           aria-labelledby="alert-dialog-title"
           aria-describedby="alert-dialog-description"
         >
-          <DialogTitle id="alert-dialog-title">{"Use Google's location service?"}</DialogTitle>
+          <DialogTitle id="alert-dialog-title">{"Delete User"}</DialogTitle>
           <DialogContent>
             <DialogContentText id="alert-dialog-description">
               Are you sure you want to delete user
@@ -47,10 +49,10 @@ class DeleteDialog extends React.Component {
           </DialogContent>
           <DialogActions>
             <Button onClick={this.handleClose} color="primary">
-              Disagree
+              Back
           </Button>
-            <Button onClick={this.handleClose} color="primary" autoFocus>
-              Agree
+            <Button onClick={this.deleteUser} color="primary" autoFocus>
+              Delete
           </Button>
           </DialogActions>
         </Dialog>

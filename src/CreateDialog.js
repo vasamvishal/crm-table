@@ -5,7 +5,8 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import TextField from '@material-ui/core/TextField';
-
+import "./CreateDialog.css";
+import { checkForAgeValidation, checkForColourNameValidation, checkForIdValidation, checkForNameValidation } from "./formValidation";
 
 export default class CreateDialog extends React.Component {
     constructor(props) {
@@ -16,8 +17,8 @@ export default class CreateDialog extends React.Component {
             ageError: false,
             nameError: false,
             colourNameError: false,
+            notDisabled: true
         }
-        console.log(this.props);
         this.handleClickOpen = this.handleClickOpen.bind(this);
         this.handleClose = this.handleClose.bind(this);
     }
@@ -28,16 +29,10 @@ export default class CreateDialog extends React.Component {
 
     handleClose = () => {
         this.setState({ open: false })
-        let _id = this.state.Id;
-        let colour = this.state.colourName;
-        let name = this.state.nameValue;
-        let age = this.state.ageValue;
-        this.props.addUser({_id,name,age,colour});
-    };
+    }
 
     checkForIdValidation = (e) => {
-        let value = e.target.value;
-        if (isNaN(value)) {
+        if (checkForIdValidation(e)) {
             this.setState({ numberError: true })
         }
         else {
@@ -47,19 +42,17 @@ export default class CreateDialog extends React.Component {
     }
 
     checkForNameValidation = (e) => {
-        let value = e.target.value;
-        if (isNaN(value)) {
+        if (checkForNameValidation(e) === false) {
             this.setState({ nameError: false })
             this.setState({ nameValue: e.target.value })
         }
         else {
-            this.setState({ nameError: true })   
+            this.setState({ nameError: true })
         }
     }
 
     checkForAgeValidation = (e) => {
-        let value = e.target.value;
-        if (isNaN(value)) {
+        if (checkForAgeValidation(e)) {
             this.setState({ ageError: true })
         }
         else {
@@ -69,8 +62,7 @@ export default class CreateDialog extends React.Component {
     }
 
     checkForColourNameValidation = (e) => {
-        let value = e.target.value;
-        if (isNaN(value)) {
+        if (checkForColourNameValidation(e) === false) {
             this.setState({ colourNameError: false })
             this.setState({ colourName: e.target.value })
         }
@@ -78,10 +70,20 @@ export default class CreateDialog extends React.Component {
             this.setState({ colourNameError: true })
         }
     }
+    createUser = () => {
+        this.setState({ open: false })
+        this.props.addUser({ _id:this.state.Id, name:this.state.nameValue, age:this.state.ageValue, colour:this.state.colourName });
+    };
+
+    // checkForDisabled = () => {
+    //     if (this.state.numberError === false || this.state.ageError === false || this.state.colourNameError === false || this.state.nameError === false) {
+    //         this.setState({notDisabled})
+    //     }
+    // }
     render() {
         return (
             <div>
-                <Button variant="outlined" color="primary" onClick={this.handleClickOpen}>
+                <Button variant="outlined" color="primary" className="create-button" onClick={this.handleClickOpen}>
                     NEW
                  </Button>
                 <Dialog
@@ -140,10 +142,11 @@ export default class CreateDialog extends React.Component {
                     </DialogContent>
                     <DialogActions>
                         <Button onClick={this.handleClose} color="primary">
-                            Disagree
+                            BACK
                         </Button>
-                        <Button disabled={this.state.numberError === true || this.state.ageError === true || this.state.colourNameError === true || this.state.nameError === true} onClick={this.handleClose} color="primary" autoFocus>
-                            Agree
+                        <Button
+                            onClick={this.createUser} color="primary" autoFocus>
+                            CREATE
                         </Button>
                     </DialogActions>
                 </Dialog>
