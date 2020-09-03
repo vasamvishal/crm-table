@@ -1,38 +1,22 @@
 import data from "../src/data.json"
+const url = "https://crudcrud.com/api/9edaebeb483d4a8a88a2b40c17af61ec/unicorns"
 
-
-import { act } from "react-dom/test-utils";
-var dataApi = [];
-dataApi = data;
 export const fetchData = async () => {
-    console.log("call");
     try {
-        // const response= await fetch("https://crudcrud.com/api/a93e2c9007f14826a988e3e31a662dec/unicorns")
-        // const dataApi=await response.json();
-        return data;
+        const response = await fetch(url)
+        const dataApi = await response.json();
+        return dataApi;
     }
     catch (e) {
-        console.log(e);
+        console.log("errror", e);
     }
 }
 
 export const deleteData = async (action) => {
-    console.log(action.payload);
+    const mainUrl = url + "/" + action.payload._id;
     try {
-        // const response= await fetch("https://crudcrud.com/api/a93e2c9007f14826a988e3e31a662dec/unicorns")
-        // const data=await response.json();
-        var remainingData = [];
-        console.log(dataApi)
-        dataApi.filter((item) => {
-            if (item._id !== action.payload._id) {
-                console.log(item);
-                remainingData.push(item);
-            }
-        })
-
-        console.log("rrem", remainingData);
-        return remainingData;
-        // return [action.payload];
+        const response = await fetch(mainUrl)
+        const data = await response.json();
     }
     catch (e) {
         console.log(e);
@@ -40,23 +24,15 @@ export const deleteData = async (action) => {
 }
 
 export const createData = async (action) => {
-    console.log("call");
-    console.log(action.payload);
-
+    const requestOptions = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(action.payload)
+    };
     try {
-        // const response= await fetch("https://crudcrud.com/api/a93e2c9007f14826a988e3e31a662dec/unicorns")
-        // const data=await response.json();
-        // var remainingData=[];
-        // data.filter((item)=>{
-        //     if(item._id !==action.payload._id){
-        //         console.log(item);
-        //          remainingData.push(item);
-        //     }
-        // })
-        data.push(action.payload);
-        console.log("rrem", data);
+        const response = await fetch(url, requestOptions)
+        const data = await response.json();
         return data;
-        // return [action.payload];
     }
     catch (e) {
         console.log(e);
@@ -64,24 +40,17 @@ export const createData = async (action) => {
 }
 
 export const editData = async (action) => {
-    console.log("call");
-    console.log(action.payload);
+    const requestOptions = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(action.payload)
+    };
 
     try {
-        // const response= await fetch("https://crudcrud.com/api/a93e2c9007f14826a988e3e31a662dec/unicorns")
-        // const data=await response.json();
-        // var remainingData=[];
-        // data.filter((item)=>{
-        //     if(item._id !==action.payload._id){
-        //         console.log(item);
-        //          remainingData.push(item);
-        //     }
-        // })
-        data.pop();
-        data.push(action.payload);
-        console.log("rrem", data);
+        const mainUrl = url + "/" + action.payload._id;
+        const response = await fetch(mainUrl, requestOptions);
+        const data = await response.json();
         return data;
-        // return [action.payload];
     }
     catch (e) {
         console.log(e);

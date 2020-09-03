@@ -111,6 +111,7 @@ class App extends React.Component {
   };
 
   render() {
+    console.log("props",this.props);
     return (
       <>
         <div className="form-table">
@@ -136,7 +137,8 @@ class App extends React.Component {
                     </TableRow>
                   </TableHead>
                   <TableBody>
-                      {this.state.data.slice(this.state.page * this.state.rowsPerPage, this.state.page * this.state.rowsPerPage + this.state.rowsPerPage).map((row) => {
+                    {this.props.error ? <div>{this.props.error}</div> :
+                      this.state.data.slice(this.state.page * this.state.rowsPerPage, this.state.page * this.state.rowsPerPage + this.state.rowsPerPage).map((row) => {
                         return (
                           this.state.isloading ? <Lines customLoading={this.state.loading} /> :
                           <TableRow hover role="checkbox" tabIndex={-1} key={row.code}>

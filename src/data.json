@@ -1,12 +1,12 @@
 [{
     "_id":"1",
     "name":"vishal",
-    "age":"45",
-    "colour":"red"
+    "age":"34",
+    "colour":"rgreen"
 },
 {
     "_id":"2",
     "name":"vasam",
     "age":"45",
-    "colour":"green"
+    "colour":"red"
 }]

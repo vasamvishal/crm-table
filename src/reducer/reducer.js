@@ -18,10 +18,12 @@ const reducer = (state = intialstate, action) => {
         }
 
         case USER_FETCH_SUCCEEDED: {
+            console.log(action.user);
             return { ...state, user: action.user, loading: false };
         }
 
         case USER_FETCH_FAILED:
+            console.log(action.message);
             return { ...state, loading: false, error: action.message };
 
 
@@ -38,8 +40,9 @@ const reducer = (state = intialstate, action) => {
         case CREATE_USER: {
             return { ...state, loading: true, error: null };
         }
-        case CREATE_USER_SUCCESSED:
-            return { ...state, user: action.user, loading: false };
+        case CREATE_USER_SUCCESSED:{
+            return { ...state, user: action.user,loading: false };
+        }
 
         case CREATE_USER_FAILED:
             return { ...state, loading: false, error: action.message };
