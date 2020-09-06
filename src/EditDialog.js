@@ -64,6 +64,7 @@ class EditDialog extends React.Component {
 
   checkForColourNameValidation = (e) => {
     if (checkForColourNameValidation(e) === false) {
+      console.log("RRr",e.target.value);
       this.setState({ colourNameError: false })
       this.setState({ colour: e.target.value })
     }
@@ -74,10 +75,12 @@ class EditDialog extends React.Component {
 
   // it is for checking whether the value from form is changed or not
   checkForValue(value, variable) {
+    console.log("CCC",value,variable);
     let userData = this.props.item;
-    if (value === undefined) {
+    if (value === undefined || value==null) {
       for (var prop in userData) {
         if (prop === variable) {
+          console.log(userData[prop])
           return userData[prop];
         }
       }
@@ -89,12 +92,13 @@ class EditDialog extends React.Component {
 
   editUser = () => {
     this.setState({ open: false })
+    console.log("DD",this.state.colour);
+    console.log("DD",this.state.name);
 
     let _id = this.checkForValue(this.state._id, "_id");
     let colour = this.checkForValue(this.state.colour, "colour");
     let name = this.checkForValue(this.state.name, "name");
     let age = this.checkForValue(this.state.age, "age");
-
     this.props.editUser({ _id, name, age, colour });
   };
 

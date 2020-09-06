@@ -7,6 +7,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import TextField from '@material-ui/core/TextField';
 import "./CreateDialog.css";
 import { checkForAgeValidation, checkForColourNameValidation, checkForIdValidation, checkForNameValidation } from "./formValidation";
+import EditDialog from './EditDialog';
 
 export default class CreateDialog extends React.Component {
     constructor(props) {
@@ -69,23 +70,36 @@ export default class CreateDialog extends React.Component {
             this.setState({ colourNameError: true })
         }
     }
+    displayNothing() {
+        return alert("Hello! User has ID registered create a new User!");
+    }
+
     createUser = () => {
         this.setState({ open: false })
-        this.props.addUser({ _id:this.state.Id, name:this.state.nameValue, age:this.state.ageValue, colour:this.state.colourName });
+        console.log("colourname", this.state.colourName);
+        console.log("user", this.props.user);
+
+        const abc = this.props.user.filter((item) => {
+            return (item._id == this.state.Id)
+        })
+        {
+            abc.length > 0 ? this.displayNothing() :
+                this.props.addUser({ _id: this.state.Id, name: this.state.nameValue, age: this.state.ageValue, colour: this.state.colourName })
+        };
     };
 
     checkForDisabledButton() {
         if (this.state.numberError === false && this.state.colourNameError === false
-          && this.state.ageError === false && this.state.nameError === false 
-          && this.state.Id !== undefined && this.state.nameValue !==undefined && 
-          this.state.ageValue !==undefined && this.state.colourName !==undefined
-          ) {
-          return false;
+            && this.state.ageError === false && this.state.nameError === false
+            && this.state.Id !== undefined && this.state.nameValue !== undefined &&
+            this.state.ageValue !== undefined && this.state.colourName !== undefined
+        ) {
+            return false;
         }
         else {
-          return true;
+            return true;
         }
-      }
+    }
     render() {
         return (
             <div>

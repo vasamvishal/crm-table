@@ -65,6 +65,7 @@ class App extends React.Component {
 
   deleteUser(row) {
     this.setState({ isloading: true }, () => {
+      console.log("row",row);
       this.props.delete_user(row)
       if (this.props.user.length >= 0) {
         setTimeout(() => {
@@ -111,13 +112,14 @@ class App extends React.Component {
   };
 
   render() {
-    console.log("props",this.props);
+    console.log("props",this.props.user);
+    console.log("props",this.state.data);
     return (
       <>
         <div className="form-table">
         <p className="label">WELCOME TO CRM TABLE</p>
           <div className="button">
-            <CreateDialog addUser={this.addUser} />
+            <CreateDialog addUser={this.addUser} user={this.props.user}/>
           </div>
           <div className="table">
             <Paper className={"root"}>
@@ -137,7 +139,7 @@ class App extends React.Component {
                     </TableRow>
                   </TableHead>
                   <TableBody>
-                    {this.props.error ? <div>{this.props.error}</div> :
+                    {this.props.error ? <div>Oops something went wrong</div> :
                       this.state.data.slice(this.state.page * this.state.rowsPerPage, this.state.page * this.state.rowsPerPage + this.state.rowsPerPage).map((row) => {
                         return (
                           this.state.isloading ? <Lines customLoading={this.state.loading} /> :

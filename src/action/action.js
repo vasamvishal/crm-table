@@ -33,13 +33,3 @@ export const edit_user = (user) => ({
     type: 'EDIT_USER',
     payload: user
 });
-
-
-// export const user_fetch_sucessed = (data) => ({
-//     type: 'USER_FETCH_SUCCEEDED',
-//     payload:data
-// });
-
-// export const user_fetch_failed = () => ({
-//     type: 'USER_FETCH_FAILED',
-// });
